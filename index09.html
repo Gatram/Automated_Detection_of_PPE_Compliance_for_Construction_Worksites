@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Safety Gear Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        p {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload an Image for Safety Gear Detection</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    {% if missing_gear %}
+        <h2>Missing Safety Gear:</h2>
+        <p>{{ ', '.join(missing_gear) }}</p>
+    {% endif %}
+</body>
+</html>

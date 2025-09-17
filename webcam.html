@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YOLOv8 Webcam Detection</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      color: #333;
+    }
+    #video-container {
+      margin: 20px auto;
+      width: 80%;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    #warning {
+      margin-top: 15px;
+      font-size: 1.2em;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>YOLOv8 Webcam Detection</h1>
+  <div id="video-container">
+    <img src="{{ url_for('video_feed') }}" alt="Webcam Feed">
+  </div>
+  <div id="warning"></div>
+
+  <script>
+    function fetchMessage() {
+      fetch('/get_message')
+        .then(response => response.json())
+        .then(data => {
+          if (data.message) {
+            document.getElementById('warning').innerText = data.message;
+          } else {
+            document.getElementById('warning').innerText = "";
+          }
+        });
+    }
+
+    // Fetch warning message every 10 seconds
+    setInterval(fetchMessage, 10000);
+  </script>
+</body>
+</html>
